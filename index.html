@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
 	<title>Currency Converter</title>
-	<meta charset="utf-8" />
+      <meta charset="utf-8" />
+      <link rel="manifest" href="manifest.json" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="/css/style.css" />
 <style>
@@ -12,6 +13,21 @@
 	}
 </style>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script>
+      //This is the service worker with the Cache-first network
+			//Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
+			if (navigator.serviceWorker.controller) {
+			  console.log('active service worker found, no need to register')
+			} else {
+
+			//Register the ServiceWorker
+			  navigator.serviceWorker.register('sw.js', {
+				scope: './'
+			  }).then(function(reg) {
+				console.log('Service worker has been registered for scope:'+ reg.scope);
+			  });
+			}
+</script>
 <script>
 	
 	let convertCurrency = ()=> {
@@ -41,7 +57,7 @@
 	<h1>The Free Currency Converter</h1>
 	<div id="box">
 	<div>
-      <input type="text" id="fromAmount" value="1"></input>
+      <input type="text" id="fromAmount" value="550"></input>
 	</div>
 <div>
       <select id="from">
