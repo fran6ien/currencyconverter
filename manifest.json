@@ -4,7 +4,7 @@
     "name": "Currency Converter",
     "scope": "./",
     "display": "standalone",
-    "start_url": "./?utm_source=homescreen",
+    "start_url": "./index.html",
     "short_name": "CConverter",
     "theme_color": "#000000",
     "description": "exchange from a currency to another one",
