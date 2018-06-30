@@ -2,10 +2,10 @@
 
 var CACHE = 'precache';
 var precacheFiles = [
-      '/',
-      '/index.html',
-      '/style.css',
-      '/app.js'
+      './',
+      './index.html',
+      './style.css',
+      './app.js'
     ];
 
 //Install stage sets up the cache-array to configure pre-cache content
