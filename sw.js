@@ -20,22 +20,22 @@ var precacheFiles = [
     ];
 
 //Install stage sets up the cache-array to configure pre-cache content
-self.addEventListener('install', function(evt) {
+self.addEventListener('install', evt => {
   console.log('The service worker is being installed.');
   evt.waitUntil(
-    caches.open(CACHE).then(function (cache) {
+    caches.open(CACHE).then(cache => {
       return cache.addAll(precacheFiles);
     })
   );
 });
 
 //allow sw to control of current page
-self.addEventListener('activate', function(evt) {
+self.addEventListener('activate', evt => {
   console.log('Claiming clients for current page');
   return self.clients.claim();
 });
 
-self.addEventListener('fetch', function(evt) {
+self.addEventListener('fetch', evt => {
   console.log('The service worker is serving the asset.'+ evt.request.url);
   evt.respondWith(fromCache(evt.request).catch(fromServer(evt.request)));
   evt.waitUntil(update(evt.request));
@@ -43,26 +43,26 @@ self.addEventListener('fetch', function(evt) {
 
 
 
-function fromCache(request) {
+const fromCache = (request) => {
   //we pull files from the cache first thing so we can show them fast
-  return caches.open(CACHE).then(function (cache) {
-    return cache.match(request).then(function (matching) {
+  return caches.open(CACHE).then(cache => {
+    return cache.match(request).then(matching => {
       return matching || Promise.reject('no-match');
     });
   });
 }
 
-function update(request) {
+const update = (request) => {
   //this is where we call the server to get the newest version of the 
   //file to use the next time we show view
-  return caches.open(CACHE).then(function (cache) {
-    return fetch(request).then(function (response) {
+  return caches.open(CACHE).then(cache => {
+    return fetch(request).then(response => {
       return cache.put(request, response);
     });
   });
 }
 
-function fromServer(request){
+const fromServer = (request) => {
   //this is the fallback if it is not in the cache to go to the server and get it
-  return fetch(request).then(function(response){ return response});
+  return fetch(request).then(response => {return response});
 }
