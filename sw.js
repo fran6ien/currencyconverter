@@ -6,6 +6,7 @@ var precacheFiles = [
       './index.html',
       './style.css',
       './app.js',
+      './idb.js',
       './manifest.json',
       './images/chrome-favicon-16-16.png',
       './images/chrome-extensionmanagementpage-48-48.png',
